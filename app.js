@@ -1,60 +1,51 @@
-function onReady() {
+window.onload = function () {
+
+    PaginaCargada();
+}
+
+function PaginaCargada() {
+    let toDos = [];
+
     const addToDoForm = document.getElementById('addToDoForm');
-    const newToDoText = document.getElementById('newToDoText');
-    const toDoList = document.getElementById('toDoList');
 
-    addToDoForm.addEventListener('submit', event => {
-        //alert('Acabas de enviar los datos de tu formulario...');
+    function createNewToDo() {
+        const newToDoText = document.getElementById('newToDoText');
 
-        event.preventDefault();
+        toDos.push({
+            title: newToDoText.value,
+            complete: false
+        });
 
-        if (newToDoText.value !== '') {
+        //console.log(toDos);
 
-            // get the text
-            let title = newToDoText.value;
-            //alert(title);
+        newToDoText.value = '';
 
-            // create a new li
-            let newLi = document.createElement('li');
+        renderTheUI();
+    }
 
-            // create a new input
-            let checkbox = document.createElement('input');
+    function renderTheUI() {
+        //Apunta al elemento ul
+        const toDoList = document.getElementById('toDoList');
 
-            // set the input's type to checkbox
+        //Limpia el ul antes de volver a dibujar
+        toDoList.textContent = '';
+
+        toDos.forEach(function (toDo) {
+            const newLi = document.createElement('li');
+            const checkbox = document.createElement('input');
             checkbox.type = "checkbox";
 
-            // Create a new delete button
-            let deleteBtn = document.createElement('button');
-            deleteBtn.textContent = "Delete";
-            deleteBtn.setAttribute('class', 'btn deep-orange darken-4 white-text');
-
-            deleteBtn.addEventListener('click', event => {
-                //console.log(event);
-                //console.log(deleteBtn.parentElement);
-                toDoList.removeChild(deleteBtn.parentElement);
-            })
-
-            // set the title
-            newLi.textContent = title;
-
-            // attach the checkbox and delete button to the li
-            newLi.appendChild(checkbox);
-            newLi.appendChild(deleteBtn);
-
-            // attach the li to the ul
+            newLi.textContent = toDo.title;
             toDoList.appendChild(newLi);
+            newLi.appendChild(checkbox);
+        });
 
-            //empty the input
-            newToDoText.value = '';
-        }
-        else
-            alert("La nota no debe estar vacía...");
+    }
+
+    addToDoForm.addEventListener('submit', e => {
+        //Evita que se recargue la página en el Submit
+        e.preventDefault();
+        createNewToDo();
     });
-
-
 }
 
-window.onload = function () {
-    //alert("The window has loaded!");
-    onReady();
-}
