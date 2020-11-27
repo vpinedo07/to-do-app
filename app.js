@@ -8,30 +8,47 @@ function onReady() {
 
         event.preventDefault();
 
-        // get the text
-        let title = newToDoText.value;
-        //alert(title);
+        if (newToDoText.value !== '') {
 
-        // create a new li
-        let newLi = document.createElement('li');
+            // get the text
+            let title = newToDoText.value;
+            //alert(title);
 
-        // create a new input
-        let checkbox = document.createElement('input');
+            // create a new li
+            let newLi = document.createElement('li');
 
-        // set the input's type to checkbox
-        checkbox.type = "checkbox";
+            // create a new input
+            let checkbox = document.createElement('input');
 
-        // set the title
-        newLi.textContent = title;
+            // set the input's type to checkbox
+            checkbox.type = "checkbox";
 
-        // attach the checkbox to the li
-        newLi.appendChild(checkbox);
+            // Create a new delete button
+            let deleteBtn = document.createElement('button');
+            deleteBtn.textContent = "Delete";
+            deleteBtn.setAttribute('class', 'btn deep-orange darken-4 white-text');
 
-        // attach the li to the ul
-        toDoList.appendChild(newLi);
+            deleteBtn.addEventListener('click', event => {
+                //console.log(event);
+                //console.log(deleteBtn.parentElement);
+                toDoList.removeChild(deleteBtn.parentElement);
+            })
 
-        //empty the input
-        newToDoText.value = '';
+            // set the title
+            newLi.textContent = title;
+
+            // attach the checkbox and delete button to the li
+            newLi.appendChild(checkbox);
+            newLi.appendChild(deleteBtn);
+
+            // attach the li to the ul
+            toDoList.appendChild(newLi);
+
+            //empty the input
+            newToDoText.value = '';
+        }
+        else
+            alert("La nota no debe estar vacía...");
     });
 
 
