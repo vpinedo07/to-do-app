@@ -36,12 +36,11 @@ function PaginaCargada() {
             const newLi = document.createElement('li');
             const checkbox = document.createElement('input');
             const deleteBtn = document.createElement("button");
-            const icon=document.createElement("i");
+            const icon = document.createElement("i");
 
             checkbox.type = "checkbox";
-            deleteBtn.textContent = toDo.id; 
+            deleteBtn.textContent = toDo.id;
             deleteBtn.setAttribute("class", "btn btn-danger px-3");
-
 
             icon.setAttribute("class", "fas fa-trash");
             icon.setAttribute("aria-hidden", "true");
@@ -52,17 +51,15 @@ function PaginaCargada() {
             newLi.appendChild(deleteBtn);
             deleteBtn.appendChild(icon);
 
-            deleteBtn.addEventListener("click", e =>{
-                alert("Are you sure you want to delete"  +toDo.id + "?");
-                toDos = toDos.filter(function(item){
+            deleteBtn.addEventListener("click", e => {
+                alert("Are you sure you want to delete" + toDo.id + "?");
+                toDos = toDos.filter(function (item) {
                     return item.id !== toDo.id;
                 })
 
                 renderTheUI();
             });
         });
-
-        
 
     }
 
